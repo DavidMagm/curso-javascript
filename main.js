@@ -136,10 +136,10 @@ function ordenProduct(arr) {
 ordenProduct(productList);
 
 
-
 // const listen = productList.image.addEventListener('click', console.log);
 
  function openProductDetailAside() {
+    
      productDetailCard.classList.remove('inactive');
     shoppingCar.classList.add('inactive');
     const isMenuDesClosed = menuDes.classList.contains('inactive');
