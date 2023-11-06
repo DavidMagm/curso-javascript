@@ -6,7 +6,7 @@ const menuCarritoIcon = document.querySelector('.navbar-shopping-cart');
 const shoppingCar = document.querySelector('.product-shopping');
 const productDetailCard = document.querySelector('.product-detail');
 const cardsContainer = document.querySelector('.card-container');
-const productDetailCloseIcon = document.querySelector('.product-detail-close');
+const productDetailBody = document.querySelector('.product-detail-body');
 
 menuEmail.addEventListener('click', toggleMenuDes);
 
@@ -54,18 +54,21 @@ function toggleMenuCarrito() {
 const productList = [];
 
 productList.push({
+    id: 1,
     name: 'Bike',
     price: 120,
     image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
 })
 
 productList.push({
+    id: 2,
     name: 'Moto',
     price: 400,
     image: 'https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_1280.jpg'
 })
 
 productList.push({
+    id: 3,
     name: 'Carro',
     price: 600,
     image: 'https://cdn.motor1.com/images/mgl/X48rl/s1/1967-shelby-gt500cr-mustang-by-classic-recreations.jpg'
@@ -77,32 +80,46 @@ function ordenProduct(arr) {
     
     for (product of arr) {
 
-        // otra solucion
-
-    //     const htmlCards = `<div class="product-card">
-    //     <img src= ${product.image} class="product-img"> 
-    //     <div class="product-info">
-    //     <div>
-    //         <p>$${product.price}</p>
-    //         <p>${product.name}</p>
-    //     </div>
-    //     <figure>
-    //         <img src="./icons/bt_add_to_cart.svg" alt="logo">
-    //     </figure>
-    //     </div>
-    // </div>`
-    
-    // const cardsContainer = document.querySelector('.card-container');
-    // cardsContainer.innerHTML += htmlCards
-
     const productCard = document.createElement('div');
     productCard.classList.add('product-card');
   
-    // product= {name, price, image} -> product.image
     const productImg = document.createElement('img');
     productImg.setAttribute('src', product.image);
+    productImg.classList.add('product-img');
     productImg.addEventListener('click', openProductDetailAside);
-  
+    productImg.addEventListener('click', hola);
+    function hola() {
+        const productDetail = [...productList];
+        productDetail.find(element => {
+            if(productImg.getAttribute('src') == element.image) {
+                console.log(element.id)
+                
+                    const productElement = 
+                    `
+                    <img src="${element.image}" alt="${element.name}" class="product-detail-img">
+    
+                    <div class="product-detail-info">
+                        <p>$${element.price}</p>
+                        <p class="info-name">${element.name}</p>
+                        <p class="info-description">With its practical position, this bike also fulfills a decorative function, add your hall or workspace.</p>
+                
+                        <button class="primary-button add-to-cart-button">
+                            <img src="./icons/bt_add_to_cart.svg" alt="add-cart">Add cart
+                        </button>
+                    </div> `;
+                    
+                    
+
+                     productDetailBody.innerHTML  = productElement;
+
+            }
+    
+
+        }) 
+            
+        
+        
+    }
     const productInfo = document.createElement('div');
     productInfo.classList.add('product-info');
   
@@ -130,13 +147,11 @@ function ordenProduct(arr) {
   
     cardsContainer.appendChild(productCard);
     }
-
+    
 }
 
 ordenProduct(productList);
 
-
-// const listen = productList.image.addEventListener('click', console.log);
 
  function openProductDetailAside() {
     
@@ -147,9 +162,23 @@ ordenProduct(productList);
         menuDes.classList.add('inactive');
     }
 }
-
+const productDetailCloseIcon = document.querySelector('.product-detail-close');
+    
 productDetailCloseIcon.addEventListener('click', closeProductDetail);
+console.log(productDetailCloseIcon);
 
-function closeProductDetail() {
+
+function openProductDetailAside() {
+    
+    productDetailCard.classList.remove('inactive');
+   shoppingCar.classList.add('inactive');
+   const isMenuDesClosed = menuDes.classList.contains('inactive');
+   if(!isMenuDesClosed) {
+       menuDes.classList.add('inactive');
+   }
+ }
+
+ function closeProductDetail() {
+    console.log("hola");
     productDetailCard.classList.add('inactive');
 }
